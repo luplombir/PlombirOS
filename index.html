@@ -4,14 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Plombir OS</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
 <style>
-:root{--ink:#241f3a;--mut:#6b6684;--glass:rgba(255,255,255,.78);--line:rgba(36,31,58,.14);--field:rgba(255,255,255,.7);--acc:#5b3df5;--onacc:#fff;--wall:linear-gradient(135deg,#ffd7c2,#e3c9ff 50%,#bfe3ff);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#f1eefc;--mut:#a9a3c4;--glass:rgba(34,30,56,.8);--line:rgba(255,255,255,.14);--field:rgba(255,255,255,.08);--acc:#9a85ff;--onacc:#161230;--wall:linear-gradient(135deg,#2a1b3d,#1b2a4a 60%,#14303a);color-scheme:dark}}
-:root[data-theme="dark"]{--ink:#f1eefc;--mut:#a9a3c4;--glass:rgba(34,30,56,.8);--line:rgba(255,255,255,.14);--field:rgba(255,255,255,.08);--acc:#9a85ff;--onacc:#161230;--wall:linear-gradient(135deg,#2a1b3d,#1b2a4a 60%,#14303a);color-scheme:dark}
-html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;height:100%;display:flex;flex-direction:column;color:var(--ink);font:15px/1.45 "Bricolage Grotesque",system-ui,sans-serif;overflow:hidden;background:var(--wall) center/cover}
-
+:root{--ink:#241f3a;--mut:#6b6684;--glass:rgba(255,255,255,.82);--line:rgba(36,31,58,.15);--field:rgba(255,255,255,.7);--acc:#5b3df5;--onacc:#fff;--wall:linear-gradient(135deg,#ffd7c2,#e3c9ff 50%,#bfe3ff);color-scheme:light}
+@media(prefers-color-scheme:dark){:root{--ink:#f1eefc;--mut:#a9a3c4;--glass:rgba(34,30,56,.88);--line:rgba(255,255,255,.14);--field:rgba(255,255,255,.08);--acc:#9a85ff;--onacc:#161230;--wall:linear-gradient(135deg,#2a1b3d,#1b2a4a 60%,#14303a);color-scheme:dark}}
+html,body{height:100%;margin:0}
+body{display:flex;flex-direction:column;color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden;background:var(--wall) center/cover}
 #desk{flex:1;position:relative;overflow:hidden}
 .win{position:absolute;display:flex;flex-direction:column;background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(30,20,70,.28);resize:both;overflow:hidden;min-width:230px;min-height:150px;max-width:calc(100% - 8px)}
 .win.min{display:none}
@@ -20,255 +17,115 @@ body{margin:0;height:100%;display:flex;flex-direction:column;color:var(--ink);fo
 .tb button{width:15px;height:15px;border-radius:50%;border:0;padding:0;cursor:pointer}
 .tb .x{background:#ff6b6b}.tb .m{background:#ffc857}
 .bd{flex:1;overflow:auto;padding:4px 14px 14px;display:flex;flex-direction:column;gap:9px}
-input,textarea{background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:9px 11px;font:inherit}
+input{background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:9px 11px;font:inherit}
+select,select option{background:#14121f;color:#fff}select{border:1px solid var(--line);border-radius:10px;padding:5px 8px;font:inherit}
 .btn{background:var(--acc);color:var(--onacc);border:0;border-radius:12px;padding:9px 16px;font:inherit;font-weight:800;cursor:pointer}
+.sm{background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:3px 9px;font:inherit;font-size:13px;cursor:pointer}
 .row{display:flex;gap:7px}.row input{flex:1;min-width:0}
 .msgs{flex:1;overflow:auto;display:flex;flex-direction:column;gap:8px}
 .msg{display:flex;gap:9px}.msg .b{background:var(--field);border-radius:4px 14px 14px 14px;padding:6px 11px}.msg small{color:var(--mut);margin-left:6px}
-.av{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-weight:800;color:#161230;flex:none}
-.per{display:flex;align-items:center;gap:9px}.per .st{margin-left:auto;color:var(--mut);font-size:13px}.per .st.on{color:#1f9d55;font-weight:600}
-.tag{background:var(--acc);color:var(--onacc);border-radius:8px;padding:0 7px;font-size:12px;font-weight:600}
-.sw{width:42px;height:32px;border-radius:10px;border:2px solid var(--line);cursor:pointer;padding:0}
-.mut{color:var(--mut)}
-.pop{position:absolute;right:0;bottom:calc(100% + 6px);width:min(250px,calc(100vw - 40px));max-height:230px;overflow:auto;background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:14px;padding:8px;box-shadow:0 10px 30px rgba(30,20,70,.3);z-index:5}
-.pop .g{display:flex;flex-wrap:wrap;gap:4px}.pop .g button{background:none;border:0;font-size:20px;cursor:pointer;border-radius:8px;padding:2px 4px;color:var(--ink)}.pop .g button:hover{background:var(--field)}
-.ce{height:1.4em;width:1.4em;object-fit:contain;vertical-align:middle}
 .sys{align-self:center;text-align:center;color:var(--mut);font-size:13px;background:var(--field);border-radius:10px;padding:4px 10px}.sys small{margin-left:6px}
-.sm{background:var(--field);color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:3px 9px;font:inherit;font-size:13px;cursor:pointer}
-#note{flex:none;padding:7px 14px;background:var(--acc);color:var(--onacc);font-weight:600;text-align:center}
-.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100000;background:var(--acc);color:var(--onacc);padding:10px 16px;border-radius:12px;font-weight:600;max-width:calc(100% - 24px);box-shadow:0 10px 30px rgba(30,20,70,.3)}
-select{background:#14121f;color:#fff;border:1px solid var(--line);border-radius:10px;padding:5px 8px;font:inherit}
-select option{background:#14121f;color:#fff}
-button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-#bar{height:48px;flex:none;display:flex;align-items:center;gap:8px;padding:0 10px;background:var(--glass);backdrop-filter:blur(18px);border-top:1px solid var(--line);position:relative;z-index:99998}
-#start{background:var(--acc);color:var(--onacc);border:0;border-radius:12px;padding:8px 16px;font:inherit;font-weight:800;cursor:pointer;flex:none}
+.av{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-weight:800;color:#161230;flex:none}
+.per{display:flex;align-items:center;gap:9px}.st{margin-left:auto;color:var(--mut);font-size:13px}.st.on{color:#1f9d55;font-weight:600}
+.tag{background:var(--acc);color:var(--onacc);border-radius:8px;padding:0 7px;font-size:12px;font-weight:600}
+.mut{color:var(--mut)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+#bar{height:48px;flex:none;display:flex;align-items:center;gap:8px;padding:0 10px;background:var(--glass);backdrop-filter:blur(18px);border-top:1px solid var(--line);position:relative;z-index:9998}
+#start{background:var(--acc);color:var(--onacc);border:0;border-radius:12px;padding:8px 16px;font:inherit;font-weight:800;cursor:pointer}
 #tasks{flex:1;display:flex;gap:6px;overflow-x:auto;min-width:0}
-.tk{background:none;border:1px solid transparent;color:var(--ink);padding:6px 12px;border-radius:12px;font:inherit;cursor:pointer;white-space:nowrap}
-.tk:hover{background:var(--field)}.tk.on{border-color:var(--acc);background:var(--field)}
-#menu{position:absolute;left:8px;bottom:54px;width:220px;max-height:calc(100vh - 110px);overflow:auto;background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:6px;display:none;box-shadow:0 14px 40px rgba(30,20,70,.3)}
-#menu.open{display:block}
-#menu button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--ink);padding:10px 12px;border-radius:12px;font:inherit;cursor:pointer}
-#menu button:hover{background:var(--field)}
-.who{flex:none;font-weight:600}.clk{flex:none}
-.lo{background:none;border:0;color:var(--ink);font:inherit;cursor:pointer;text-decoration:underline;flex:none}
-@media(max-width:520px){.who,.clk{display:none}}
-#auth{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;padding:16px;background:var(--wall) center/cover}
-#auth.hide{display:none}
+.tk{background:none;border:1px solid transparent;color:var(--ink);padding:6px 12px;border-radius:12px;font:inherit;cursor:pointer;white-space:nowrap}.tk.on{border-color:var(--acc);background:var(--field)}
+#menu{position:absolute;left:8px;bottom:54px;width:210px;background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:6px;display:none;box-shadow:0 14px 40px rgba(30,20,70,.3)}
+#menu.open{display:block}#menu button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--ink);padding:10px 12px;border-radius:12px;font:inherit;cursor:pointer}#menu button:hover{background:var(--field)}
+.lo{background:none;border:0;color:var(--ink);font:inherit;cursor:pointer;text-decoration:underline}
+@media(max-width:520px){#who{display:none}}
+#auth{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:16px;background:var(--wall) center/cover}#auth.hide{display:none}
 #card{width:min(360px,100%);background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:24px;padding:26px;display:flex;flex-direction:column;gap:11px;box-shadow:0 20px 60px rgba(30,20,70,.3)}
-#card h1{margin:0;font-size:30px;font-weight:800;letter-spacing:-.02em}
-.tabs{display:flex;flex-wrap:wrap;background:var(--field);border-radius:12px;padding:3px}.tabs button{flex:1;border:0;background:none;color:var(--ink);font:inherit;font-weight:600;padding:7px;border-radius:10px;cursor:pointer}.tabs button.on{background:var(--acc);color:var(--onacc)}
+#card h1{margin:0;font-size:30px;letter-spacing:-.02em}
+.tabs{display:flex;background:var(--field);border-radius:12px;padding:3px}.tabs button{flex:1;border:0;background:none;color:var(--ink);font:inherit;font-weight:600;padding:7px;border-radius:10px;cursor:pointer}.tabs button.on{background:var(--acc);color:var(--onacc)}
 #err{color:#d6336c;min-height:20px;font-size:13px}
+.toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:10000;background:var(--acc);color:var(--onacc);padding:10px 16px;border-radius:12px;font-weight:600;max-width:calc(100% - 24px)}
 </style>
 </head>
 <body>
-<div id="auth"><form id="card" autocomplete="on">
- <h1>Plombir OS</h1><div class="mut">A small desktop for your community.</div>
+<div id="auth"><form id="card">
+ <h1>Plombir OS</h1>
  <div class="tabs"><button type="button" id="t-in" class="on">Log in</button><button type="button" id="t-up">Sign up</button></div>
  <input id="un" placeholder="Username" autocomplete="username" aria-label="Username" required>
  <input id="pw" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password" required>
- <div id="err" role="alert"></div>
- <button class="btn" id="go">Log in</button>
- <div class="mut" style="font-size:13px">Demo: accounts are stored in this browser only. The first account becomes Admin.</div>
+ <div id="err" role="alert"></div><button class="btn" id="go">Log in</button>
 </form></div>
-<div id="note" style="display:none"></div>
 <div id="desk"></div>
-<div id="bar"><div id="menu"></div><button id="start">Plombir OS</button><div id="tasks"></div><span class="who" id="who"></span><span class="mut clk" id="clock"></span><button class="lo" id="out">Log out</button></div>
+<div id="bar"><div id="menu"></div><button id="start">Plombir OS</button><div id="tasks"></div><span id="who"></span><button class="lo" id="out">Log out</button></div>
 <script>
-const $=s=>document.querySelector(s),desk=$("#desk"),tasks=$("#tasks"),menu=$("#menu");
-const COLORS=["#ffb4a2","#b8c0ff","#a8e6cf","#ffd6a5","#e0aaff"];
-const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
-const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const time=()=>new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
-const hex=a=>[...new Uint8Array(a)].map(b=>b.toString(16).padStart(2,"0")).join("");
-async function hash(pw,salt){const e=new TextEncoder(),k=await crypto.subtle.importKey("raw",e.encode(pw),"PBKDF2",false,["deriveBits"]);return hex(await crypto.subtle.deriveBits({name:"PBKDF2",salt:e.encode(salt),iterations:100000,hash:"SHA-256"},k,256))}
-let cur=null,mode="in",z=10,n=0,wins={},chatDraw=null,timers=[];
-const U=()=>ld("users",{})[cur];
-const patch=p=>{const u=ld("users",{});Object.assign(u[cur],p);sv("users",u)};
-const av=u=>`<div class="av" style="background:${u.color}">${esc(u.name[0].toUpperCase())}</div>`;
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let me=null,ws,people=[],hist=[],ulist=[],wins={},z=10,n=0,mode="in",pend=null;
+const post=async(p,b)=>(await fetch("/api/"+p,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b||{})})).json();
+const toast=t=>{const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.append(d);setTimeout(()=>d.remove(),5000)};
+const tm=ts=>new Date(ts).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
+const isStaff=()=>me&&me.role!=="User",tx=o=>ws&&ws.readyState===1&&ws.send(JSON.stringify(o));
+const av=(nm,c)=>`<div class="av" style="background:${/^#[0-9a-f]{6}$/i.test(c)?c:"#b8c0ff"}">${esc((nm[0]||"?").toUpperCase())}</div>`;
+const live=v=>v===-1||v>Date.now();
 
-const on=(u,k)=>{const r=u[k];return r&&(!r.until||r.until>Date.now())?r:null};
-const until=r=>r.until?"until "+new Date(r.until).toLocaleString([],{dateStyle:"medium",timeStyle:"short"}):"permanently";
-function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),5000)}
-function say(m){const l=ld("chat",[]);l.push({sys:1,t:time(),m});sv("chat",l.slice(-100));if(chatDraw&&wins.chat)chatDraw()}
-function muted(u){const r=on(u,"mute");if(r){toast("You are muted "+until(r)+". Reason: "+r.reason);return true}return false}
-const PERMS=[["panel","Open the admin panel"],["mute","Mute users"],["ban","Ban users"],["reports","Read reports"],["words","Manage banned words"],["emoji","Manage emoji"],["cmds","Manage commands"],["remove","Remove accounts"],["chat","Manage chat settings"]];
-const roles=()=>({User:[],Moderator:["panel","mute","ban","reports"],...ld("roles",{})});
-const can=(u,p)=>!!u&&(u.role==="Admin"||(roles()[u.role]||[]).includes(p));
-const emj=v=>/^data:image\//.test(v)?`<img class="ce" src="${esc(v)}" alt="emoji">`:esc(v);
-const fmt=m=>{const e=ld("emoji",{});return esc(m).replace(/:(\w{2,16}):/g,(a,n)=>e[n]!==undefined?emj(e[n]):a)};
-function blocked(u,m){if(can(u,"panel"))return false;const l=m.toLowerCase();if(ld("words",[]).some(w=>l.includes(w))){toast("Your message contains a word that isn’t allowed here.");return true}return false}
-function openPop(ep,inp,E){const cu=ld("emoji",{});
- ep.innerHTML=`<div class="g">${E.map(x=>`<button data-i="${esc(x)}" aria-label="Emoji">${esc(x)}</button>`).join("")}${Object.entries(cu).map(([k,v])=>`<button data-i=":${esc(k)}:" aria-label="${esc(k)}">${emj(v)}</button>`).join("")}</div>`;
- ep.style.display="block";
- ep.querySelectorAll(".g button").forEach(x=>x.onclick=()=>{inp.value+=x.dataset.i;inp.focus()})}
-function pickEmoji(ep,after){
- const fi=ep.querySelector("input[type=file]");
- fi.onchange=()=>{const f=fi.files[0];if(!f)return;const img=new Image(),r=new FileReader();
-  r.onload=()=>{img.onload=()=>{const c=document.createElement("canvas"),s=Math.min(1,64/Math.max(img.width,img.height));c.width=Math.max(1,Math.round(img.width*s));c.height=Math.max(1,Math.round(img.height*s));c.getContext("2d").drawImage(img,0,0,c.width,c.height);
-   const url=c.toDataURL("image/png"),nm=f.name.replace(/\.\w+$/,"").replace(/\W/g,"").slice(0,16).toLowerCase(),nw=ep.querySelector("#nw");
-   nw.innerHTML=`<div class="row" style="margin-top:6px;align-items:center"><img class="ce" src="${url}" alt=""><input placeholder="name" value="${esc(nm)}" maxlength="16" aria-label="Emoji name"><button class="sm">Save</button></div>`;
-   nw.querySelector("button").onclick=()=>{const n=nw.querySelector("input").value.trim().toLowerCase();if(!/^\w{2,16}$/.test(n)){toast("Use a name of 2–16 letters or numbers.");return}const e=ld("emoji",{});e[n]=url;sv("emoji",e);after()}};
-   img.onerror=()=>toast("That file isn’t an image I can read.");img.src=r.result};r.readAsDataURL(f)}}
-function mod(m){say(m);logA(m)}
-function logA(m){const l=ld("audit",[]);l.push({t:Date.now(),m});sv("audit",l.slice(-200))}
-function paintNote(){const t=ld("cfg",{}).banner,n=document.getElementById("note");n.textContent=t||"";n.style.display=t&&cur?"block":"none"}
-function chatOk(u){const c=ld("cfg",{});if(can(u,"panel"))return true;if(c.lock){toast("Chat is locked right now.");return false}const l=ld("last",{}),n=Date.now(),w=(c.slow||0)*1e3;if(w&&n-(l[u.name]||0)<w){toast("Slow mode: wait "+Math.ceil((w-(n-l[u.name]))/1e3)+" s.");return false}l[u.name]=n;sv("last",l);return true}
-function runCmd(m,u){const n=m.slice(1).split(" ")[0].toLowerCase(),cs=ld("cmds",{});
- if(n==="help"){say("Commands: "+["/help",...Object.entries(cs).filter(([k,v])=>!v.staff||can(u,"panel")).map(([k])=>"/"+k)].join(", "));return}
- const x=cs[n];if(!x){toast("Unknown command. Type /help to see the list.");return}
- if(x.staff&&!can(u,"panel")){toast("Only staff can use /"+n+".");return}
- say(x.text.split("{user}").join(u.name))}
-/* accounts */
-function setMode(m){mode=m;$("#t-in").classList.toggle("on",m==="in");$("#t-up").classList.toggle("on",m==="up");$("#go").textContent=m==="in"?"Log in":"Create account";$("#pw").autocomplete=m==="in"?"current-password":"new-password";$("#err").textContent=""}
-$("#t-in").onclick=()=>setMode("in");$("#t-up").onclick=()=>setMode("up");
-$("#card").onsubmit=async e=>{e.preventDefault();const err=$("#err"),name=$("#un").value.trim(),pw=$("#pw").value,users=ld("users",{}),key=name.toLowerCase();err.textContent="";
- try{
-  if(mode==="up"){
-   if(!/^\w{3,16}$/.test(name)){err.textContent="Use 3–16 letters, numbers or underscores.";return}
-   if(pw.length<6){err.textContent="Your password needs at least 6 characters.";return}
-   if(users[key]){err.textContent="That username is taken.";return}if(ld("cfg",{}).closed&&Object.keys(users).length){err.textContent="Sign-ups are closed right now.";return}
-   const c=Object.keys(users).length,salt=crypto.getRandomValues(new Uint8Array(8)).join("");
-   users[key]={name,salt,h:await hash(pw,salt),role:c?"User":"Admin",bio:"",color:COLORS[c%5],bg:""};sv("users",users);
-  }else{const u=users[key];if(!u||u.h!==await hash(pw,u.salt)){err.textContent="Wrong username or password.";return}const bn=on(u,"ban");if(bn){err.textContent="This account is banned "+until(bn)+". Reason: "+bn.reason;return}}
-  sv("session",key);enter(key);$("#pw").value="";
- }catch(x){err.textContent="Secure sign-in isn’t available here. Open the page over https."}};
-$("#out").onclick=()=>{sv("session",null);leave()};
-
-function enter(key){cur=key;$("#auth").classList.add("hide");const u=U();$("#who").textContent=u.name+" · "+u.role;applyBg(u.bg);
- menu.innerHTML=Object.entries(apps).filter(([k,a])=>!a.admin||can(u,"panel")).map(([k,a])=>`<button data-k="${k}">${a.title}</button>`).join("");
- beat();timers.push(setInterval(beat,8000));openApp("chat");openApp("people")}
-function leave(){timers.forEach(clearInterval);timers=[];Object.keys(wins).forEach(closeApp);cur=null;paintNote();menu.innerHTML="";menu.classList.remove("open");document.body.style.background="";$("#auth").classList.remove("hide");setMode("in")}
-function beat(){const u=U();if(!u||on(u,"ban")){toast(u?"Your account is banned "+until(on(u,"ban"))+". Reason: "+on(u,"ban").reason:"Your account was removed.");leave();return}const s=ld("seen",{});s[cur]=Date.now();sv("seen",s);paintNote()}
-function applyBg(v){document.body.style.background=v?(v.startsWith("url")?v+" center/cover":v):""}
-menu.onclick=e=>{const b=e.target.closest("button");if(b){menu.classList.remove("open");openApp(b.dataset.k)}};
-$("#start").onclick=e=>{e.stopPropagation();if(cur)menu.classList.toggle("open")};
-document.addEventListener("pointerdown",e=>{if(!menu.contains(e.target)&&e.target.id!=="start")menu.classList.remove("open");const pp=document.getElementById("ep");if(pp&&!pp.contains(e.target)&&e.target.id!=="eb")pp.style.display="none"});
-setInterval(()=>$("#clock").textContent=time(),20000);$("#clock").textContent=time();
-
-/* apps */
 const apps={
- chat:{title:"Global chat",w:360,h:420,build(b){
-  b.innerHTML=`<div class="msgs"></div><div class="row" style="position:relative"><input placeholder="Say something…" aria-label="Message"><button class="sm" id="eb" aria-label="Emoji">🙂</button><button class="btn">Send</button><div class="pop" id="ep" style="display:none"></div></div>`;
+ chat:{t:"Global chat",w:360,h:420,build(b,w){
+  b.innerHTML=`<div class="msgs"></div><div class="row"><input maxlength="500" placeholder="Say something…" aria-label="Message"><button class="btn">Send</button></div>`;
   const box=b.querySelector(".msgs"),inp=b.querySelector("input");
-  chatDraw=()=>{const log=ld("chat",[{u:"Plombir OS",c:COLORS[1],t:time(),m:"Welcome! Chat is shared between accounts in this browser."}]);box.innerHTML=log.map(x=>x.sys?`<div class="sys">${esc(x.m)}<small>${x.t}</small></div>`:`<div class="msg"><div class="av" style="background:${x.c}">${esc(x.u[0].toUpperCase())}</div><div class="b"><b>${esc(x.u)}</b><small>${x.t}</small><div>${fmt(x.m)}</div></div></div>`).join("");box.scrollTop=box.scrollHeight};
-  const send=()=>{const m=inp.value.trim();if(!m)return;const log=ld("chat",[]),u=U();if(muted(u))return;if(m[0]==="/"){inp.value="";runCmd(m,u);return}if(blocked(u,m)||!chatOk(u))return;log.push({u:u.name,c:u.color,t:time(),m});sv("chat",log.slice(-100));inp.value="";chatDraw()};
-  b.querySelector(".btn").onclick=send;inp.onkeydown=e=>{if(e.key==="Enter")send()};chatDraw();const ep=b.querySelector("#ep");b.querySelector("#eb").onclick=()=>{if(ep.style.display==="none"){const E=["😀","😂","😍","😎","😭","😡","👍","👎","❤️","🎉","🔥","✨","🙏","👀","🤔","😴"];openPop(ep,inp,E)}else ep.style.display="none"}}},
- channels:{title:"Channels",w:300,h:200,build(b){b.innerHTML=`<div class="mut">No channels yet. Channels are the next thing to build.</div>`}},
- people:{title:"People online",w:280,h:320,build(b){
-  const draw=()=>{const seen=ld("seen",{});b.innerHTML=Object.values(ld("users",{})).map(u=>{const on=Date.now()-(seen[u.name.toLowerCase()]||0)<25000;return `<div class="per">${av(u)}<div>${esc(u.name)}${u.role!=="User"?` <span class="tag">${u.role}</span>`:""}</div><span class="st ${on?"on":""}">${on?"online":"away"}</span></div>`}).join("")};
-  draw();timers.push(setInterval(draw,6000))}},
- messages:{title:"Messages",w:340,h:400,build(b){
-  let to=null;const dm=()=>ld("dm",[]);
-  const draw=()=>{const m=U().name;
-   if(!to){const peers=[...new Set(dm().filter(x=>x.a===m||x.b===m).map(x=>x.a===m?x.b:x.a))];
-    b.innerHTML=`<div class="row"><input placeholder="New message to username…" aria-label="Username"><button class="btn">Open</button></div><div id="e2" class="mut"></div>`+peers.map(p=>`<button class="btn" style="background:var(--field);color:var(--ink);text-align:left" data-p="${esc(p)}">${esc(p)}</button>`).join("");
-    b.querySelector(".btn").onclick=()=>{const v=b.querySelector("input").value.trim().replace(/^@/,""),u=Object.values(ld("users",{})).find(x=>x.name.toLowerCase()===v.toLowerCase());if(!u||u.name===m){b.querySelector("#e2").textContent="No other user with that name.";return}to=u.name;draw()};
-    b.querySelectorAll("[data-p]").forEach(x=>x.onclick=()=>{to=x.dataset.p;draw()});return}
-   const th=dm().filter(x=>(x.a===m&&x.b===to)||(x.a===to&&x.b===m));
-   b.innerHTML=`<button class="btn" style="align-self:flex-start;padding:4px 10px" id="bk">Back</button><b>${esc(to)}</b><div class="msgs">${th.map(x=>`<div class="msg"><div class="b"><b>${esc(x.a)}</b><small>${x.t}</small><div>${fmt(x.m)}</div></div></div>`).join("")}</div><div class="row"><input placeholder="Write to ${esc(to)}…" aria-label="Message"><button class="btn" id="sd">Send</button></div>`;
-   const box=b.querySelector(".msgs");box.scrollTop=box.scrollHeight;
-   b.querySelector("#bk").onclick=()=>{to=null;draw()};
-   const inp=b.querySelector("input"),send=()=>{const t=inp.value.trim();if(!t||muted(U())||blocked(U(),t))return;const d=dm();d.push({a:m,b:to,t:time(),m:t});sv("dm",d.slice(-300));draw()};
-   b.querySelector("#sd").onclick=send;inp.onkeydown=e=>{if(e.key==="Enter")send()};inp.focus()};
-  draw();timers.push(setInterval(()=>{if(to&&!b.querySelector("input:focus"))draw()},4000))}},
- reports:{title:"Reports",w:360,h:420,build(b){
-  const draw=()=>{const u=U(),all=ld("reports",[]),staff=can(u,"reports"),list=staff?all:all.filter(r=>r.by===u.name);
-   b.innerHTML=`<input placeholder="Short subject" aria-label="Subject" maxlength="60"><textarea rows="3" placeholder="What happened? Include times and names." aria-label="Details" maxlength="500"></textarea><button class="btn" id="rp">Send report</button>${staff?"<b>All reports</b>":'<div class="mut">Only moderators and admins can read reports.</div>'}`+(!staff?"":list.length?list.map(r=>`<div class="msg"><div class="b" style="flex:1"><b>${esc(r.s)}</b><small>${esc(r.by)} · ${r.t}${r.done?" · resolved":""}</small><div>${esc(r.d)}</div>${staff&&!r.done?`<button class="btn" style="padding:3px 9px;margin-top:4px" data-d="${r.id}">Resolve</button>`:""}</div></div>`).join(""):`<div class="mut">No reports yet.</div>`);
-   b.querySelector("#rp").onclick=()=>{const s=b.querySelector("input").value.trim(),d=b.querySelector("textarea").value.trim();if(!s||!d)return;all.push({id:Date.now(),by:u.name,s,d,t:time(),done:0});sv("reports",all);if(!staff)toast("Report sent to the moderators.");draw()};
-   b.querySelectorAll("[data-d]").forEach(x=>x.onclick=()=>{all.find(r=>r.id==x.dataset.d).done=1;sv("reports",all);draw()})};draw()}},
- profile:{title:"My profile",w:300,h:330,build(b){const u=U();
-  b.innerHTML=`<div class="per">${av(u)}<div><b>${esc(u.name)}</b> <span class="tag">${u.role}</span></div></div><label class="mut">Bio<textarea rows="3" maxlength="140">${esc(u.bio)}</textarea></label><div class="mut">Avatar color</div><div class="row">${COLORS.map(c=>`<button class="sw" style="background:${c}" data-c="${c}" aria-label="Color ${c}"></button>`).join("")}</div><button class="btn" id="sp">Save profile</button>`;
-  let col=u.color;b.querySelectorAll(".sw").forEach(s=>s.onclick=()=>col=s.dataset.c);
-  b.querySelector("#sp").onclick=()=>{patch({bio:b.querySelector("textarea").value,color:col});b.querySelector(".av").style.background=col}}},
- look:{title:"Appearance",w:310,h:230,build(b){
-  const bgs=["linear-gradient(135deg,#ff9a8b,#a18cd1)","linear-gradient(135deg,#43cea2,#185a9d)","linear-gradient(135deg,#f6d365,#fda085)","linear-gradient(135deg,#232526,#414345)","linear-gradient(135deg,#c471f5,#fa71cd)"];
-  b.innerHTML=`<div class="mut">Pick a background for your account.</div><div class="row">${bgs.map(c=>`<button class="sw" style="background:${c}" data-c="${c}" aria-label="Background"></button>`).join("")}</div><div class="row"><input placeholder="https://example.com/picture.jpg" aria-label="Image URL"><button class="btn" id="ui">Use</button></div><button class="btn" id="rs" style="background:var(--field);color:var(--ink)">Reset</button>`;
-  const set=v=>{patch({bg:v});applyBg(v)};
-  b.querySelectorAll(".sw").forEach(s=>s.onclick=()=>set(s.dataset.c));
-  b.querySelector("#ui").onclick=()=>{const v=b.querySelector("input").value.trim().replace(/["()]/g,"");if(v)set(`url("${v}")`)};
-  b.querySelector("#rs").onclick=()=>set("")}},
- rules:{title:"Rules",w:300,h:220,build(b){b.innerHTML=`<div>1. Be kind to everyone.</div><div>2. No spam or advertising.</div><div>3. Report problems to an admin.</div><div class="mut">Swap these for your community’s own rules.</div>`}},
- admin:{title:"Admin panel",admin:1,w:500,h:560,build(root){
-  const TABS=[["overview","Overview",u=>1],["users","Users",u=>1],["audit","Log",u=>1],["chat","Chat",u=>can(u,"chat")],["roles","Roles",u=>u.role==="Admin"],["words","Words",u=>can(u,"words")],["emoji","Emoji",u=>can(u,"emoji")],["cmds","Commands",u=>can(u,"cmds")],["backup","Backup",u=>u.role==="Admin"]];
-  let tab="overview";
-  const tabs={
-  overview(p){const us=Object.values(ld("users",{})),seen=ld("seen",{}),rp=ld("reports",[]),cm=ld("chat",[]),st=[["Members",us.length],["Online now",us.filter(u=>Date.now()-(seen[u.name.toLowerCase()]||0)<25000).length],["Banned",us.filter(u=>on(u,"ban")).length],["Muted",us.filter(u=>on(u,"mute")).length],["Open reports",rp.filter(r=>!r.done).length],["Chat messages",cm.filter(m=>!m.sys).length]];
-   p.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px">${st.map(([l,v])=>`<div class="msg"><div class="b" style="flex:1"><div style="font-size:24px;font-weight:800">${v}</div><div class="mut">${l}</div></div></div>`).join("")}</div><b>Latest activity</b>`+(ld("audit",[]).slice(-5).reverse().map(a=>`<div class="mut">${esc(a.m)}</div>`).join("")||`<div class="mut">Nothing yet.</div>`)},
-  audit(p){const l=ld("audit",[]).slice().reverse();p.innerHTML=l.map(a=>`<div class="msg"><div class="b" style="flex:1"><small style="margin:0">${new Date(a.t).toLocaleString([],{dateStyle:"short",timeStyle:"short"})}</small><div>${esc(a.m)}</div></div></div>`).join("")||`<div class="mut">No moderation actions yet.</div>`},
-  chat(p){const c=ld("cfg",{});p.innerHTML=`<label class="row" style="align-items:center"><input type="checkbox" id="lk" style="flex:none;width:auto"${c.lock?" checked":""}> Lock chat (only staff can talk)</label><label class="row" style="align-items:center"><input type="checkbox" id="cl" style="flex:none;width:auto"${c.closed?" checked":""}> Close sign-ups</label><label class="mut">Slow mode for members <select id="sl">${[[0,"Off"],[5,"5 seconds"],[15,"15 seconds"],[60,"1 minute"]].map(([v,l])=>`<option value="${v}"${v===(c.slow||0)?" selected":""}>${l}</option>`).join("")}</select></label><label class="mut">Announcement banner<input id="bn" value="${esc(c.banner||"")}" maxlength="120" placeholder="Shown to everyone at the top"></label><button class="btn" id="sb">Save settings</button><button class="sm" id="cc">Clear chat history</button>`;
-   p.querySelector("#sb").onclick=()=>{sv("cfg",{lock:p.querySelector("#lk").checked,closed:p.querySelector("#cl").checked,slow:+p.querySelector("#sl").value,banner:p.querySelector("#bn").value.trim()});logA(`${U().name} updated chat settings.`);paintNote();toast("Saved.")};
-   p.querySelector("#cc").onclick=()=>{sv("chat",[]);mod(`Chat was cleared by ${U().name}.`)}},
-  backup(p){const KEYS=["users","chat","dm","reports","words","emoji","cmds","roles","cfg","audit"];
-   p.innerHTML=`<div class="mut">Everything on this site is stored in your browser. Create a backup to keep it safe or move it to another device. Importing replaces the current data.</div><textarea id="bx" rows="6" aria-label="Backup data"></textarea><div class="row"><button class="sm" id="ex">Create backup</button><button class="sm" id="im">Import from box</button></div>`;
-   const bx=p.querySelector("#bx");
-   p.querySelector("#ex").onclick=()=>{const o={};KEYS.forEach(k=>o[k]=ld(k,null));bx.value=JSON.stringify(o);bx.select()};
-   p.querySelector("#im").onclick=()=>{try{const o=JSON.parse(bx.value);if(!o||!o.users)throw 0;Object.values(o.users).forEach(u=>{u.name=String(u.name).replace(/\W/g,"");if(!COLORS.includes(u.color))u.color=COLORS[0];u.role=String(u.role||"User").replace(/[^\w ]/g,"").slice(0,20)||"User"});(o.chat||[]).forEach(m=>{if(!COLORS.includes(m.c))m.c=COLORS[0]});KEYS.forEach(k=>{if(o[k]!==null&&o[k]!==undefined)sv(k,o[k])});toast("Backup imported.");beat()}catch(e){toast("That isn’t a valid backup.")}}},
-  users(b){
-  let q="",f="all",pend=null;
-  const DUR=[["10 minutes",6e5],["1 hour",36e5],["1 day",864e5],["7 days",6048e5],["Permanently",0]];
-  b.innerHTML=`<input id="q" placeholder="Search users…" aria-label="Search users"><select id="f" aria-label="Filter">${[["all","Everyone"],["active","Not banned"],["banned","Banned"],["muted","Muted"]].map(([v,l])=>`<option value="${v}">${l}</option>`).join("")}</select><div id="fm"></div><div id="ul" style="display:flex;flex-direction:column;gap:10px"></div>`;
-  const fm=b.querySelector("#fm"),ul=b.querySelector("#ul");
-  b.querySelector("#q").oninput=e=>{q=e.target.value.toLowerCase();render()};
-  b.querySelector("#f").onchange=e=>{f=e.target.value;render()};
-  const render=()=>{const mu=U(),me=mu.role,users=ld("users",{});
-   ul.innerHTML=Object.entries(users).filter(([k,u])=>u.name.toLowerCase().includes(q)&&(f==="all"||(f==="banned"&&on(u,"ban"))||(f==="muted"&&on(u,"mute"))||(f==="active"&&!on(u,"ban")))).map(([k,u])=>{const self=k===cur,ok2=!self&&(me==="Admin"||!can(u,"panel")),bn=on(u,"ban"),mt=on(u,"mute");return `<div class="per" style="align-items:flex-start">${av(u)}<div style="flex:1;min-width:0"><div>${esc(u.name)} <span class="tag">${u.role}</span>${bn?` <span class="tag" style="background:#d6336c;color:#fff">Banned</span>`:""}${mt?` <span class="tag" style="background:#e08a00;color:#fff">Muted</span>`:""}${(u.warns||[]).length?` <span class="tag" style="background:#6b6684;color:#fff">${u.warns.length} warning${u.warns.length>1?"s":""}</span>`:""}</div>${bn?`<div class="mut" style="font-size:12px">Ban ${until(bn)}: ${esc(bn.reason)}</div>`:""}${mt?`<div class="mut" style="font-size:12px">Mute ${until(mt)}: ${esc(mt.reason)}</div>`:""}<div class="row" style="flex-wrap:wrap;margin-top:5px">${me==="Admin"&&!self?`<select data-r="${k}" aria-label="Role for ${esc(u.name)}">${[...Object.keys(roles()),"Admin"].map(r=>`<option${r===u.role?" selected":""}>${r}</option>`).join("")}</select>`:""}${ok2&&can(mu,"mute")?`<button class="sm" data-a="warn:${k}">Warn</button><button class="sm" data-a="${mt?"unmute":"mute"}:${k}">${mt?"Unmute":"Mute"}</button>`:""}${ok2&&can(mu,"ban")?`<button class="sm" data-a="${bn?"unban":"ban"}:${k}">${bn?"Unban":"Ban"}</button>`:""}${ok2&&can(mu,"remove")?`<button class="sm" data-a="rm:${k}">Remove</button>`:""}</div></div></div>`}).join("")||`<div class="mut">No users match.</div>`;
-   fm.innerHTML=pend&&users[pend.k]?`<div class="msg"><div class="b" style="flex:1;display:flex;flex-direction:column;gap:6px"><b>${{ban:"Ban",mute:"Mute",warn:"Warn"}[pend.t]} ${esc(users[pend.k].name)}</b>${pend.t==="warn"?"":`<select id="du">${DUR.map(([l,v])=>`<option value="${v}">${l}</option>`).join("")}</select>`}<input id="rn" placeholder="Reason (shown in chat)" maxlength="80" aria-label="Reason"><div class="row"><button class="btn" id="ok">Confirm</button><button class="sm" id="no">Cancel</button></div></div></div>`:"";
-   ul.querySelectorAll("[data-r]").forEach(x=>x.onchange=()=>{const a=ld("users",{});a[x.dataset.r].role=x.value;sv("users",a);logA(`${U().name} set ${a[x.dataset.r].name} to ${x.value}.`);render()});
-   ul.querySelectorAll("[data-a]").forEach(x=>x.onclick=()=>{const [a,k]=x.dataset.a.split(":"),all=ld("users",{}),t=all[k],by=U().name;
-    if(a==="mute"||a==="ban"||a==="warn"){pend={t:a,k};render();return}
-    if(a==="rm"){delete all[k];sv("users",all);mod(`${t.name}’s account was removed by ${by}.`);render();return}
-    delete t[a==="unmute"?"mute":"ban"];sv("users",all);mod(`${t.name} was ${a==="unmute"?"unmuted":"unbanned"} by ${by}.`);render()});
-   const ok=fm.querySelector("#ok");
-   if(ok){ok.onclick=()=>{const why=fm.querySelector("#rn").value.trim();if(!why){toast("Add a reason so it can be shown in chat.");return}
-    if(pend.t==="warn"){const all=ld("users",{}),t=all[pend.k],by=U().name;(t.warns=t.warns||[]).push({reason:why,by,t:Date.now()});const n=t.warns.length;let m=`${t.name} was warned by ${by} (warning ${n} of 3). Reason: ${why}`;if(n>=3){t.warns=[];t.mute={reason:"3 warnings",by:"Auto-mod",until:Date.now()+36e5};m+=" They reached 3 warnings and are muted for 1 hour."}sv("users",all);mod(m);pend=null;render();return}
-    const sel=fm.querySelector("#du"),ms=+sel.value,all=ld("users",{}),t=all[pend.k],by=U().name;
-    t[pend.t]={reason:why,by,until:ms?Date.now()+ms:0};sv("users",all);
-    mod(`${t.name} was ${pend.t==="ban"?"banned":"muted"} ${ms?"for "+sel.selectedOptions[0].textContent:"permanently"} by ${by}. Reason: ${why}`);pend=null;render()};
-    fm.querySelector("#no").onclick=()=>{pend=null;render()}}
-  };
-  render()},
-  roles(p){const draw=()=>{const r=roles();p.innerHTML=`<div class="mut">Admin always has full access. Choose what each role can do, then give the role to people in Users.</div><div class="row"><input placeholder="New role name" aria-label="New role name" maxlength="20"><button class="btn">Create</button></div>`+Object.entries(r).map(([n,ps])=>`<div class="msg"><div class="b" style="flex:1"><b>${esc(n)}</b>${n==="User"?` <span class="mut">Everyone starts here</span>`:`<div style="display:grid;gap:3px;margin-top:5px">${PERMS.map(([k,l])=>`<label class="row" style="align-items:center"><input type="checkbox" style="flex:none;width:auto" data-n="${esc(n)}" data-p="${k}"${ps.includes(k)?" checked":""}> ${l}</label>`).join("")}</div>`}${n==="User"||n==="Moderator"?"":`<button class="sm" style="margin-top:6px" data-d="${esc(n)}">Delete role</button>`}</div></div>`).join("");
-   p.querySelector(".btn").onclick=()=>{const n=p.querySelector("input").value.trim(),c=ld("roles",{});if(!/^[\w ]{2,20}$/.test(n)||n==="Admin"||r[n]){toast("Pick a new name of 2–20 letters or numbers.");return}c[n]=[];sv("roles",c);draw()};
-   p.querySelectorAll("[data-p]").forEach(x=>x.onchange=()=>{const c=ld("roles",{}),base=c[x.dataset.n]||[...r[x.dataset.n]];c[x.dataset.n]=x.checked?[...new Set([...base,x.dataset.p])]:base.filter(z=>z!==x.dataset.p);sv("roles",c);draw()});
-   p.querySelectorAll("[data-d]").forEach(x=>x.onclick=()=>{const c=ld("roles",{}),us=ld("users",{});delete c[x.dataset.d];Object.values(us).forEach(v=>{if(v.role===x.dataset.d)v.role="User"});sv("roles",c);sv("users",us);draw()})};draw()},
-  words(p){const draw=()=>{const w=ld("words",[]);p.innerHTML=`<div class="mut">Messages with these words are blocked for members. Staff can still post them.</div><div class="row"><input placeholder="Add a word or phrase" aria-label="Banned word" maxlength="40"><button class="btn">Add</button></div><div class="row" style="flex-wrap:wrap">${w.map((x,i)=>`<button class="sm" data-i="${i}" aria-label="Remove ${esc(x)}">${esc(x)} ×</button>`).join("")||`<span class="mut">No banned words yet.</span>`}</div>`;
-   p.querySelector(".btn").onclick=()=>{const v=p.querySelector("input").value.trim().toLowerCase();if(!v||w.includes(v))return;w.push(v);sv("words",w);draw()};
-   p.querySelectorAll("[data-i]").forEach(x=>x.onclick=()=>{w.splice(+x.dataset.i,1);sv("words",w);draw()})};draw()},
-  emoji(p){const draw=()=>{const e=ld("emoji",{});p.innerHTML=`<div class="mut">Members type :name: in chat to use a custom emoji. The value can be any emoji or short text, or an image from your computer.</div><div class="row"><input placeholder="name" aria-label="Name" maxlength="16" style="max-width:110px"><input placeholder="😀" aria-label="Emoji" maxlength="20"><button class="btn">Add</button></div><div class="row" style="align-items:center"><label class="sm" style="cursor:pointer">Add image from file<input type="file" accept="image/*" hidden></label></div><div id="nw"></div>`+(Object.keys(e).map(k=>`<div class="per"><span style="font-size:20px">${emj(e[k])}</span><b>:${esc(k)}:</b><button class="sm" style="margin-left:auto" data-k="${esc(k)}">Delete</button></div>`).join("")||`<div class="mut">No custom emoji yet.</div>`);
-   const i=p.querySelectorAll("input");p.querySelector(".btn").onclick=()=>{const n=i[0].value.trim().toLowerCase(),v=i[1].value.trim();if(!/^\w{2,16}$/.test(n)||!v){toast("Use a name of 2–16 letters or numbers and add an emoji.");return}e[n]=v;sv("emoji",e);draw()};
-   p.querySelectorAll("[data-k]").forEach(x=>x.onclick=()=>{delete e[x.dataset.k];sv("emoji",e);draw()});pickEmoji(p,draw)};draw()},
-  cmds(p){const draw=()=>{const c=ld("cmds",{});p.innerHTML=`<div class="mut">Members type /name in chat and the response appears for everyone. Use {user} for their name. /help is built in.</div><div class="row"><input placeholder="name" aria-label="Command name" maxlength="16" style="max-width:110px"><input placeholder="What the chat should say" aria-label="Response" maxlength="200"></div><label class="row mut" style="align-items:center"><input type="checkbox" style="flex:none;width:auto"> Staff only</label><button class="btn">Add command</button>`+(Object.entries(c).map(([k,v])=>`<div class="per"><b>/${esc(k)}</b><span class="mut" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(v.text)}</span>${v.staff?`<span class="tag">staff</span>`:""}<button class="sm" data-k="${esc(k)}">Delete</button></div>`).join("")||`<div class="mut">No custom commands yet.</div>`);
-   const i=p.querySelectorAll("input");p.querySelector(".btn").onclick=()=>{const n=i[0].value.trim().toLowerCase().replace(/^\//,""),t=i[1].value.trim();if(!/^\w{2,16}$/.test(n)||n==="help"||!t){toast("Use a name of 2–16 letters or numbers and add a response.");return}c[n]={text:t,staff:i[2].checked};sv("cmds",c);draw()};
-   p.querySelectorAll("[data-k]").forEach(x=>x.onclick=()=>{delete c[x.dataset.k];sv("cmds",c);draw()})};draw()}
-  };
-  root.innerHTML=`<div class="tabs" id="tb"></div><div id="pg" style="display:flex;flex-direction:column;gap:9px"></div>`;
-  const tb=root.querySelector("#tb"),pg=root.querySelector("#pg");
-  const show=()=>{const me=U();if(!TABS.find(t=>t[0]===tab)[2](me))tab="users";tb.innerHTML=TABS.filter(t=>t[2](me)).map(t=>`<button class="${t[0]===tab?"on":""}" data-t="${t[0]}">${t[1]}</button>`).join("");tb.querySelectorAll("button").forEach(x=>x.onclick=()=>{tab=x.dataset.t;show()});pg.innerHTML="";tabs[tab](pg)};
-  show()}}
+  w.draw=()=>{box.innerHTML=hist.map(x=>x.sys?`<div class="sys">${esc(x.text)}<small>${tm(x.ts)}</small></div>`:`<div class="msg">${av(x.name,x.color)}<div class="b"><b>${esc(x.name)}</b><small>${tm(x.ts)}</small><div>${esc(x.text)}</div></div></div>`).join("");box.scrollTop=box.scrollHeight};
+  const send=()=>{const m=inp.value.trim();if(m){tx({t:"chat",m});inp.value=""}};
+  b.querySelector(".btn").onclick=send;inp.onkeydown=e=>{if(e.key==="Enter")send()};w.draw()}},
+ people:{t:"People online",w:280,h:320,build(b,w){
+  w.draw=()=>{b.innerHTML=people.map(p=>`<div class="per">${av(p.name,p.color)}<span>${esc(p.name)}</span>${p.role!=="User"?`<span class="tag">${esc(p.role)}</span>`:""}<span class="st ${p.online?"on":""}">${p.online?"online":"offline"}</span></div>`).join("")};w.draw()}},
+ admin:{t:"Admin panel",staff:1,w:420,h:480,build(b,w){
+  tx({t:"users"});
+  w.draw=()=>{
+   const f=pend?`<div class="msg"><div class="b" style="flex:1;display:grid;gap:6px"><b>${pend.a==="ban"?"Ban":"Mute"} ${esc(pend.name)}</b><select id="du">${[["10m","10 minutes"],["1h","1 hour"],["1d","1 day"],["7d","7 days"],["perm","Permanently"]].map(([v,l])=>`<option value="${v}">${l}</option>`).join("")}</select><input id="rn" maxlength="80" placeholder="Reason (shown in chat)" aria-label="Reason"><div class="row"><button class="btn" id="ok">Confirm</button><button class="sm" id="no">Cancel</button></div></div></div>`:"";
+   b.innerHTML=f+ulist.map(u=>{const mt=live(u.mute_until),bn=live(u.ban_until),can=u.id!==me.id&&(me.role==="Admin"||u.role==="User"),bt=(a,l)=>`<button class="sm" data-a="${a}" data-i="${u.id}" data-n="${esc(u.name)}">${l}</button>`;
+    return `<div class="per" style="align-items:flex-start"><div style="flex:1"><b>${esc(u.name)}</b> <span class="tag">${esc(u.role)}</span>${bn?` <span class="tag" style="background:#d6336c;color:#fff">Banned</span>`:""}${mt?` <span class="tag" style="background:#e08a00;color:#fff">Muted</span>`:""}<div class="row" style="flex-wrap:wrap;margin-top:4px">${me.role==="Admin"&&u.id!==me.id?`<select data-r="${u.id}" aria-label="Role for ${esc(u.name)}">${["User","Moderator","Admin"].map(r=>`<option${r===u.role?" selected":""}>${r}</option>`).join("")}</select>`:""}${can?bt(mt?"unmute":"mute",mt?"Unmute":"Mute")+bt(bn?"unban":"ban",bn?"Unban":"Ban"):""}</div></div></div>`}).join("");
+   b.querySelectorAll("[data-a]").forEach(x=>x.onclick=()=>{const a=x.dataset.a;if(a==="mute"||a==="ban"){pend={a,id:+x.dataset.i,name:x.dataset.n};w.draw()}else tx({t:"mod",action:a,id:+x.dataset.i})});
+   b.querySelectorAll("[data-r]").forEach(x=>x.onchange=()=>tx({t:"mod",action:"role",id:+x.dataset.r,role:x.value}));
+   const ok=b.querySelector("#ok");if(ok){ok.onclick=()=>{tx({t:"mod",action:pend.a,id:pend.id,dur:b.querySelector("#du").value,reason:b.querySelector("#rn").value});pend=null};b.querySelector("#no").onclick=()=>{pend=null;w.draw()}}};
+  w.draw()}}
 };
+const paint=()=>Object.values(wins).forEach(w=>w.tk.classList.toggle("on",!w.el.classList.contains("min")&&+w.el.style.zIndex===z));
+const redraw=()=>Object.values(wins).forEach(w=>w.draw&&w.draw());
+function open(id){
+ if(wins[id]){wins[id].el.classList.remove("min");wins[id].el.style.zIndex=++z;paint();return}
+ const a=apps[id],el=document.createElement("div"),w={el},sm=innerWidth<520;
+ el.className="win";el.style.cssText=`width:${Math.min(a.w,innerWidth-16)}px;height:${Math.min(a.h,innerHeight-120)}px;left:${sm?8:24+n*32}px;top:${sm?8:18+n*28}px;z-index:${++z}`;n=(n+1)%7;
+ el.innerHTML=`<div class="tb"><button class="x" aria-label="Close"></button><button class="m" aria-label="Minimize"></button><i>${a.t}</i></div><div class="bd"></div>`;$("#desk").append(el);
+ const tk=document.createElement("button");tk.className="tk";tk.textContent=a.t;$("#tasks").append(tk);w.tk=tk;wins[id]=w;a.build(el.querySelector(".bd"),w);
+ tk.onclick=()=>{if(el.classList.contains("min")||+el.style.zIndex!==z){el.classList.remove("min");el.style.zIndex=++z}else el.classList.add("min");paint()};
+ el.querySelector(".x").onclick=()=>{el.remove();tk.remove();delete wins[id];paint()};el.querySelector(".m").onclick=()=>{el.classList.add("min");paint()};
+ el.onpointerdown=()=>{el.style.zIndex=++z;paint()};
+ const tb=el.querySelector(".tb");tb.onpointerdown=e=>{if(e.target.closest("button"))return;const r=el.getBoundingClientRect(),d=$("#desk").getBoundingClientRect(),dx=e.clientX-r.left,dy=e.clientY-r.top;tb.setPointerCapture(e.pointerId);
+  tb.onpointermove=m=>{el.style.left=Math.max(0,Math.min(m.clientX-dx-d.left,d.width-80))+"px";el.style.top=Math.max(0,Math.min(m.clientY-dy-d.top,d.height-44))+"px"};tb.onpointerup=()=>tb.onpointermove=null};
+ paint()}
 
-/* windows */
-function focusApp(id){const w=wins[id];w.el.classList.remove("min");w.el.style.zIndex=++z;paint()}
-function paint(){Object.values(wins).forEach(w=>w.tk.classList.toggle("on",!w.el.classList.contains("min")&&+w.el.style.zIndex===z))}
-function closeApp(id){const w=wins[id];if(!w)return;w.el.remove();w.tk.remove();delete wins[id];paint()}
-function openApp(id){
- if(wins[id]){focusApp(id);return}
- const a=apps[id],el=document.createElement("div"),small=desk.clientWidth<520;
- el.className="win";el.setAttribute("role","dialog");el.setAttribute("aria-label",a.title);
- el.style.width=Math.min(a.w,desk.clientWidth-16)+"px";el.style.height=Math.min(a.h,desk.clientHeight-100)+"px";
- el.style.left=(small?8:24+n*32)+"px";el.style.top=(small?8:18+n*28)+"px";n=(n+1)%7;
- el.innerHTML=`<div class="tb"><button class="x" aria-label="Close"></button><button class="m" aria-label="Minimize"></button><i>${a.title}</i></div><div class="bd"></div>`;
- desk.appendChild(el);const tk=document.createElement("button");tk.className="tk";tk.textContent=a.title;tasks.appendChild(tk);wins[id]={el,tk};tk.onclick=()=>{if(el.classList.contains("min")||+el.style.zIndex!==z)focusApp(id);else{el.classList.add("min");paint()}};a.build(el.querySelector(".bd"));
- el.querySelector(".x").onclick=()=>closeApp(id);el.querySelector(".m").onclick=()=>{el.classList.add("min");paint()};
- el.addEventListener("pointerdown",()=>{el.style.zIndex=++z;paint()});
- const tb=el.querySelector(".tb");
- tb.onpointerdown=e=>{if(e.target.closest("button"))return;const r=el.getBoundingClientRect(),d=desk.getBoundingClientRect(),dx=e.clientX-r.left,dy=e.clientY-r.top;tb.setPointerCapture(e.pointerId);tb.style.cursor="grabbing";
-  tb.onpointermove=m=>{el.style.left=Math.max(0,Math.min(m.clientX-dx-d.left,d.width-80))+"px";el.style.top=Math.max(0,Math.min(m.clientY-dy-d.top,d.height-44))+"px"};
-  tb.onpointerup=()=>{tb.onpointermove=null;tb.style.cursor="grab"}};
- focusApp(id)}
-window.addEventListener("storage",e=>{if(e.key==="chat"&&chatDraw&&wins.chat)chatDraw()});
-const s=ld("session",null);if(s&&ld("users",{})[s]&&!on(ld("users",{})[s],"ban"))enter(s);
+function connect(){
+ ws=new WebSocket((location.protocol==="https:"?"wss://":"ws://")+location.host+"/ws");
+ ws.onmessage=e=>{const d=JSON.parse(e.data);
+  if(d.t==="hello"){hist=d.history;redraw();if(isStaff()&&wins.admin)tx({t:"users"})}
+  else if(d.t==="msg"){hist.push(d.m);hist=hist.slice(-100);redraw()}
+  else if(d.t==="people"){people=d.list;redraw()}
+  else if(d.t==="users"){ulist=d.list;redraw()}
+  else if(d.t==="refresh"){if(isStaff()&&wins.admin)tx({t:"users"})}
+  else if(d.t==="err")toast(d.m)};
+ ws.onclose=e=>{if(!me)return;if(e.code===4001){me=null;show(true);toast("You were signed out. If you were banned, the login screen shows why.")}else setTimeout(connect,2000)}}
+function show(login){$("#auth").classList.toggle("hide",!login);if(login)Object.keys(wins).forEach(k=>{wins[k].el.remove();wins[k].tk.remove();delete wins[k]})}
+async function start(){
+ const r=await fetch("/api/me");if(!r.ok)return show(true);me=await r.json();show(false);
+ $("#who").textContent=me.name+" · "+me.role;
+ $("#menu").innerHTML=Object.entries(apps).filter(([k,a])=>!a.staff||isStaff()).map(([k,a])=>`<button data-k="${k}">${a.t}</button>`).join("");
+ connect();open("chat");open("people")}
+const setMode=m=>{mode=m;$("#t-in").classList.toggle("on",m==="in");$("#t-up").classList.toggle("on",m==="up");$("#go").textContent=m==="in"?"Log in":"Create account";$("#err").textContent=""};
+$("#t-in").onclick=()=>setMode("in");$("#t-up").onclick=()=>setMode("up");
+$("#card").onsubmit=async e=>{e.preventDefault();const r=await post(mode==="in"?"login":"signup",{name:$("#un").value.trim(),pw:$("#pw").value});
+ if(r.error){$("#err").textContent=r.error;return}$("#pw").value="";start()};
+$("#out").onclick=async()=>{await post("logout");me=null;if(ws)ws.close();show(true)};
+$("#start").onclick=e=>{e.stopPropagation();$("#menu").classList.toggle("open")};
+$("#menu").onclick=e=>{const k=e.target.dataset.k;if(k){$("#menu").classList.remove("open");open(k)}};
+document.addEventListener("pointerdown",e=>{if(!$("#menu").contains(e.target)&&e.target.id!=="start")$("#menu").classList.remove("open")});
+start();
 </script>
 </body>
 </html>
